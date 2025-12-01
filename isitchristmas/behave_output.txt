@@ -1,0 +1,62 @@
+Feature: Find out if it's Christmas or not # features/is_it_christmas.feature:1
+  As a person of celebration
+  I want to know if it's Christmas
+  So that I don't forget to celebrate.
+  Scenario: It's not Christmas today                      # features/is_it_christmas.feature:6
+    Given I open the url "https://isitchristmas.com"      # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    Then I expect that element "a" contains the text "NO" # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:121
+
+  Scenario: Page title indicates Christmas status      # features/is_it_christmas.feature:10
+    Given I open the url "https://isitchristmas.com"   # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    Then I expect that the title is "Is it Christmas?" # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:25
+
+  Scenario: Main answer element exists on the page   # features/is_it_christmas.feature:14
+    Given I open the url "https://isitchristmas.com" # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    Then I expect that element "a" does exist        # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:83
+
+  Scenario: Main answer element is visible           # features/is_it_christmas.feature:18
+    Given I open the url "https://isitchristmas.com" # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    Then I expect that element "a" is visible        # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:14
+
+  Scenario: Page URL is correct                                # features/is_it_christmas.feature:22
+    Given I open the url "https://isitchristmas.com"           # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    Then I expect that the url is "https://isitchristmas.com/" # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:152
+
+  Scenario: Answer text is not empty                 # features/is_it_christmas.feature:26
+    Given I open the url "https://isitchristmas.com" # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    Then I expect that element "a" does exist        # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:83
+    And I expect that element "a" contains any text  # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:131
+
+  Scenario: Background color matches non-Christmas theme  # features/is_it_christmas.feature:31
+    Given I open the url "https://isitchristmas.com"      # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    Then I expect that element "body" does exist          # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:83
+
+  Scenario: Page loads within reasonable time            # features/is_it_christmas.feature:35
+    Given I open the url "https://isitchristmas.com"     # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    Then I expect that element "a" is visible            # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:14
+    And I expect that element "a" contains the text "NO" # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:121
+
+  Scenario: Main answer link element has expected tag  # features/is_it_christmas.feature:40
+    Given I open the url "https://isitchristmas.com"   # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    Then I expect that element "a" does exist          # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:83
+    And I expect that element "a" is visible           # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:14
+
+  Scenario: Page contains exactly one main answer    # features/is_it_christmas.feature:45
+    Given I open the url "https://isitchristmas.com" # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    Then I expect that element "a" does exist        # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:83
+
+  Scenario: Refreshing page shows consistent answer       # features/is_it_christmas.feature:49
+    Given I open the url "https://isitchristmas.com"      # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    Then I expect that element "a" contains the text "NO" # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:121
+    When I pause for 1000ms                               # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/actions.py:16
+    And I open the url "https://isitchristmas.com"        # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    Then I expect that element "a" contains the text "NO" # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:121
+
+  Scenario: Answer element is displayed as uppercase      # features/is_it_christmas.feature:56
+    Given I open the url "https://isitchristmas.com"      # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    Then I expect that element "a" contains the text "NO" # ../.venv/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:121
+
+1 feature passed, 0 failed, 0 skipped
+12 scenarios passed, 0 failed, 0 skipped
+30 steps passed, 0 failed, 0 skipped, 0 undefined
+Took 0m2.943s
