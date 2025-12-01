@@ -19,14 +19,67 @@ jobs:
       with:
         python-version: '3.11'
         
+    - name: Set up Chrome
+      uses: browser-actions/setup-chrome@v1
+      with:
+        chrome-version: stable
+        
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         
+    - name: Create modified environment.py for CI
+      run: |
+        cat > isitchristmas/features/environment_ci.py << 'ENVEOF'
+        import behave_webdriver
+        from behave_webdriver.steps import *
+        from selenium import webdriver
+        from selenium.webdriver.chrome.options import Options
+        
+        def before_all(context):
+            chrome_options = Options()
+            chrome_options.add_argument('--headless')
+            chrome_options.add_argument('--no-sandbox')
+            chrome_options.add_argument('--disable-dev-shm-usage')
+            chrome_options.add_argument('--disable-gpu')
+            context.behave_driver = webdriver.Chrome(options=chrome_options)
+        
+        def after_all(context):
+            if hasattr(context, 'behave_driver'):
+                context.behave_driver.quit()
+        ENVEOF
+        mv isitchristmas/features/environment.py isitchristmas/features/environment_local.py
+        mv isitchristmas/features/environment_ci.py isitchristmas/features/environment.py
+        
     - name: Run behave tests for isitchristmas
       run: |
         cd isitchristmas && behave --no-capture
+        
+    - name: Create modified environment.py for peppers-ghost
+      run: |
+        cat > peppers-ghost/features/environment_ci.py << 'ENVEOF'
+        import behave_webdriver
+        from behave_webdriver.steps import *
+        from selenium import webdriver
+        from selenium.webdriver.chrome.options import Options
+        
+        def before_all(context):
+            chrome_options = Options()
+            chrome_options.add_argument('--headless')
+            chrome_options.add_argument('--no-sandbox')
+            chrome_options.add_argument('--disable-dev-shm-usage')
+            chrome_options.add_argument('--disable-gpu')
+            context.behave_driver = webdriver.Chrome(options=chrome_options)
+        
+        def after_all(context):
+            if hasattr(context, 'behave_driver'):
+                context.behave_driver.quit()
+        ENVEOF
+        if [ -f peppers-ghost/features/environment.py ]; then
+          mv peppers-ghost/features/environment.py peppers-ghost/features/environment_local.py
+        fi
+        mv peppers-ghost/features/environment_ci.py peppers-ghost/features/environment.py
         
     - name: Run behave tests for peppers-ghost
       run: |
